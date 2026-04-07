@@ -23,6 +23,8 @@ import {
   X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { 
   LineChart, 
   Line, 
@@ -768,17 +770,19 @@ export default function App() {
                     msg.sender === 'user' ? "ml-auto items-end" : "mr-auto items-start"
                   )}>
                     <div className={cn(
-                      "p-4 rounded-2xl text-sm leading-relaxed",
+                      "p-4 rounded-2xl text-sm leading-relaxed prose prose-sm prose-stone max-w-none",
                       msg.sender === 'user' 
-                        ? "bg-stone-900 text-white rounded-tr-none" 
+                        ? "bg-stone-900 text-white rounded-tr-none prose-invert" 
                         : msg.sender === 'admin'
                           ? "bg-stone-200 text-stone-900 rounded-tl-none border border-stone-300"
                           : "bg-stone-100 text-stone-800 rounded-tl-none"
                     )}>
                       {msg.sender === 'admin' && (
-                        <p className="text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-1">Concierge Reply</p>
+                        <p className="text-[10px] font-bold text-stone-500 uppercase tracking-widest mb-1 not-prose">Concierge Reply</p>
                       )}
-                      {msg.text}
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {msg.text}
+                      </ReactMarkdown>
                     </div>
                     
                     {msg.options && (
@@ -932,17 +936,19 @@ export default function App() {
                       msg.sender === 'user' ? "ml-auto items-end" : "mr-auto items-start"
                     )}>
                       <div className={cn(
-                        "p-4 rounded-2xl text-sm leading-relaxed shadow-sm",
+                        "p-4 rounded-2xl text-sm leading-relaxed shadow-sm prose prose-sm prose-stone max-w-none",
                         msg.sender === 'user' 
-                          ? "bg-stone-900 text-white rounded-tr-none" 
+                          ? "bg-stone-900 text-white rounded-tr-none prose-invert" 
                           : msg.sender === 'admin'
                             ? "bg-stone-100 border border-stone-200 text-stone-800 rounded-tl-none"
                             : "bg-white border border-stone-100 text-stone-800 rounded-tl-none"
                       )}>
                         {msg.sender === 'admin' && (
-                          <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-1">Admin Reply</p>
+                          <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-1 not-prose">Admin Reply</p>
                         )}
-                        {msg.text}
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                          {msg.text}
+                        </ReactMarkdown>
                       </div>
                     </div>
                   ))
